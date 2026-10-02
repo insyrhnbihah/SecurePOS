@@ -1,0 +1,13 @@
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:config|database|migrations|storage|backups|tools|tmp|output|tests|docs|\.git|\.aws|\.codex|\.agents)(?:/|$) - [F,L,NC]
+    RewriteRule (?:^|/)\. - [F,L]
+    RewriteRule \.(?:sql|bak|log|ps1|bat|key|pem|p12|pfx|md|example\.php)$ - [F,L,NC]
+</IfModule>
+
+<FilesMatch "(?i)(^\.|\.(sql|bak|log|ps1|bat|key|pem|p12|pfx|md)$|\.example\.php$)">
+    Require all denied
+</FilesMatch>

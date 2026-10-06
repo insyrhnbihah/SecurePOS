@@ -100,6 +100,7 @@ foreach ($allRows as $row) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecurePOS Product Expiry | Restoran Kencana Sari</title>
@@ -124,8 +125,8 @@ foreach ($allRows as $row) {
             min-width: 0;
             padding: 8px 12px;
             border-radius: 9px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.09);
+            background: var(--theme-105, rgba(255,255,255,0.04));
+            border: 1px solid var(--theme-155, rgba(255,255,255,0.09));
             color: var(--text);
         }
 
@@ -134,7 +135,7 @@ foreach ($allRows as $row) {
         }
 
         .expiry-toolbar .form-select option {
-            background: #101d2d;
+            background: var(--theme-90, #101d2d);
             color: var(--text);
         }
 
@@ -171,15 +172,15 @@ foreach ($allRows as $row) {
         }
 
         .expiry-toolbar .btn-outline-light {
-            border-color: rgba(255,255,255,.16);
-            background: rgba(255,255,255,.035);
+            border-color: var(--theme-91, rgba(255,255,255,.16));
+            background: var(--theme-92, rgba(255,255,255,.035));
             color: var(--text);
         }
 
         .expiry-toolbar .btn-outline-light:hover,
         .expiry-toolbar .btn-outline-light:focus {
-            border-color: rgba(255,255,255,.28);
-            background: rgba(255,255,255,.08);
+            border-color: var(--theme-93, rgba(255,255,255,.28));
+            background: var(--theme-94, rgba(255,255,255,.08));
             color: var(--text);
         }
 
@@ -207,25 +208,25 @@ foreach ($allRows as $row) {
 
         .status-badge.expired {
             background: rgba(252, 92, 125, 0.16);
-            color: #ffb3c1;
+            color: var(--theme-114, #ffb3c1);
             border: 1px solid rgba(252, 92, 125, 0.24);
         }
 
         .status-badge.expiring-soon {
             background: rgba(255, 159, 67, 0.16);
-            color: #ffd097;
+            color: var(--theme-113, #ffd097);
             border: 1px solid rgba(255, 159, 67, 0.24);
         }
 
         .status-badge.safe {
             background: rgba(85, 214, 209, 0.16);
-            color: #9feee9;
+            color: var(--theme-112, #9feee9);
             border: 1px solid rgba(85, 214, 209, 0.24);
         }
 
         .status-badge.expires-today {
             background: rgba(138, 107, 255, 0.16);
-            color: #d5cbff;
+            color: var(--theme-156, #d5cbff);
             border: 1px solid rgba(138, 107, 255, 0.24);
         }
 
@@ -234,6 +235,7 @@ foreach ($allRows as $row) {
             vertical-align: middle;
         }
     </style>
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body>
     <div class="dashboard-shell">
@@ -260,6 +262,8 @@ foreach ($allRows as $row) {
                 <a href="users.php" class="nav-link">Users</a>
                 <a href="reports.php" class="nav-link">Reports</a>
                 <a href="audit_logs.php" class="nav-link">Audit Logs</a>
+                <?php else : ?>
+                <a href="leave.php" class="nav-link">Employee Attendance / Leave</a>
                 <?php endif; ?>
             </nav>
 

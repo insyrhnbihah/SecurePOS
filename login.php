@@ -257,11 +257,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecurePOS Login | Restoran Kencana Sari</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/login.css?v=20260902-left-position-final">
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body class="login-page login-page-redesign">
     <main class="login-shell">

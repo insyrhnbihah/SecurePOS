@@ -310,6 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecurePOS Inventory Management | Restoran Kencana Sari</title>
@@ -319,6 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-3e6pZLlYGnJotkXptUsH4FJsuMx6Knc4fNdZ3K4BVhEME8GVerSSTpfaYfZ2C8Ux" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css?v=20260820-sidebar">
     <link rel="stylesheet" href="assets/css/inventory.css">
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body class="<?= ($showAddForm || $showEditForm) ? 'modal-open' : ''; ?>">
     <div class="dashboard-shell">

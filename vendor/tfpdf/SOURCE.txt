@@ -1,0 +1,3 @@
+tFPDF 1.33 (FPDF 1.85), LGPL, upstream release: https://github.com/Setasign/tFPDF/releases/tag/v1.33
+Runtime and font parser are unmodified. Only DejaVuSans regular and bold fonts are bundled.
+DejaVu font license: font/unifont/DejaVu_LICENSE.txt.

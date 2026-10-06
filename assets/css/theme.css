@@ -1,0 +1,237 @@
+/* Shared palette. Dark fallbacks in existing rules preserve the original design. */
+:root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --panel-strong: #eef4fa;
+    --text: #182b43;
+    --muted: #52647a;
+    --accent: #087e86;
+    --accent-soft: rgba(8, 126, 134, .10);
+    --blue: #245fd1;
+    --orange: #995300;
+    --red: #bb2547;
+    --purple: #6543ba;
+    --border: #d9e2ec;
+    --theme-1: rgba(24, 43, 67, 0.1);
+    --theme-2: rgba(24, 43, 67, 0.06);
+    --theme-3: #ffffff;
+    --theme-4: rgba(24, 43, 67, 0.08);
+    --theme-5: rgba(24, 43, 67, 0.14);
+    --theme-6: #182b43;
+    --theme-7: #52647a;
+    --theme-8: #ffffff;
+    --theme-9: rgba(24, 43, 67, 0.5);
+    --theme-10: rgba(255, 255, 255, 0.72);
+    --theme-11: rgba(24, 43, 67, 0.14);
+    --theme-12: #52647a;
+    --theme-13: #182b43;
+    --theme-14: #52647a;
+    --theme-15: rgba(24, 43, 67, 0.16);
+    --theme-16: #182b43;
+    --theme-17: rgba(24, 43, 67, 0.06);
+    --theme-18: #52647a;
+    --theme-19: rgba(24, 43, 67, 0.18);
+    --theme-20: #182b43;
+    --theme-21: #182b43;
+    --theme-22: #ffffff;
+    --theme-23: #ffffff;
+    --theme-24: #ffffff;
+    --theme-25: rgba(255, 255, 255, 0.97);
+    --theme-26: rgba(24, 43, 67, 0.14);
+    --theme-27: rgba(255, 255, 255, 0.96);
+    --theme-28: rgba(255, 255, 255, 0.98);
+    --theme-29: rgba(255, 255, 255, 0.99);
+    --theme-30: rgba(24, 43, 67, 0.065);
+    --theme-31: rgba(255, 255, 255, 0.985);
+    --theme-32: rgba(255, 255, 255, 0.99);
+    --theme-33: #182b43;
+    --theme-34: #182b43;
+    --theme-35: rgba(24, 43, 67, 0.1);
+    --theme-36: rgba(255, 255, 255, 0.72);
+    --theme-37: rgba(255, 255, 255, 0.92);
+    --theme-38: rgba(24, 43, 67, 0.06);
+    --theme-39: #182b43;
+    --theme-40: #318c87;
+    --theme-41: #52647a;
+    --theme-42: #318c89;
+    --theme-43: #ffffff;
+    --theme-44: #ffffff;
+    --theme-45: #ffffff;
+    --theme-46: #ffffff;
+    --theme-47: rgba(24, 43, 67, 0.14);
+    --theme-48: #ffffff;
+    --theme-49: #ffffff;
+    --theme-50: #ffffff;
+    --theme-51: #52647a;
+    --theme-52: #182b43;
+    --theme-53: #2f888c;
+    --theme-54: #2c768c;
+    --theme-55: #2f888c;
+    --theme-56: #318c8c;
+    --theme-57: #ffffff;
+    --theme-58: #ffffff;
+    --theme-59: #52647a;
+    --theme-60: #182b43;
+    --theme-61: #31878c;
+    --theme-62: rgba(255, 255, 255, 0.7);
+    --theme-63: #182b43;
+    --theme-64: rgba(24, 43, 67, 0.06);
+    --theme-65: rgba(255, 255, 255, 0.88);
+    --theme-66: #318c8b;
+    --theme-67: #318c87;
+    --theme-68: #52647a;
+    --theme-69: #318c8b;
+    --theme-70: #315a8c;
+    --theme-71: rgba(255, 255, 255, 0.55);
+    --theme-72: #182b43;
+    --theme-73: #315b8c;
+    --theme-74: rgba(255, 255, 255, 0.84);
+    --theme-75: #ffffff;
+    --theme-76: #ffffff;
+    --theme-77: rgba(24, 43, 67, 0.14);
+    --theme-78: rgba(24, 43, 67, 0.12);
+    --theme-79: rgba(24, 43, 67, 0.06);
+    --theme-80: rgba(24, 43, 67, 0.1);
+    --theme-81: #ffffff;
+    --theme-82: rgba(24, 43, 67, 0.12);
+    --theme-83: rgba(24, 43, 67, 0.12);
+    --theme-84: rgba(255, 255, 255, 0.9);
+    --theme-85: #318c65;
+    --theme-86: #31878c;
+    --theme-87: #182b43;
+    --theme-88: #ffffff;
+    --theme-89: rgba(24, 43, 67, 0.09);
+    --theme-90: #ffffff;
+    --theme-91: rgba(24, 43, 67, 0.16);
+    --theme-92: rgba(24, 43, 67, 0.06);
+    --theme-93: rgba(24, 43, 67, 0.28);
+    --theme-94: rgba(24, 43, 67, 0.08);
+    --theme-95: #ffffff;
+    --theme-96: rgba(24, 43, 67, 0.06);
+    --theme-97: #31678c;
+    --theme-98: rgba(255, 255, 255, 0.85);
+    --theme-99: #ffffff;
+    --theme-100: #ffffff;
+    --theme-101: rgba(24, 43, 67, 0.1);
+    --theme-102: rgba(24, 43, 67, 0.14);
+    --theme-103: rgba(24, 43, 67, 0.08);
+    --theme-104: rgba(24, 43, 67, 0.06);
+    --theme-105: rgba(24, 43, 67, 0.06);
+    --theme-106: rgba(24, 43, 67, 0.07);
+    --theme-107: #52647a;
+    --theme-108: rgba(255, 255, 255, 0.96);
+    --theme-109: rgba(24, 43, 67, 0.14);
+    --theme-110: #318c6f;
+    --theme-111: #7a612b;
+    --theme-112: #318c86;
+    --theme-113: #7a562b;
+    --theme-114: #182b43;
+    --theme-115: #182b43;
+    --theme-116: rgba(24, 43, 67, 0.06);
+    --theme-117: #182b43;
+    --theme-118: rgba(255, 255, 255, 0.78);
+    --theme-119: #ffffff;
+    --theme-120: #182b43;
+    --theme-121: #182b43;
+    --theme-122: #ffffff;
+    --theme-123: rgba(24, 43, 67, 0.14);
+    --theme-124: #52647a;
+    --theme-125: #318c87;
+    --theme-126: #182b43;
+    --theme-127: rgba(24, 43, 67, 0.13);
+    --theme-128: #ffffff;
+    --theme-129: #ffffff;
+    --theme-130: rgba(255, 255, 255, 0.25);
+    --theme-131: #ffffff;
+    --theme-132: #52647a;
+    --theme-133: rgba(24, 43, 67, 0.14);
+    --theme-134: rgba(24, 43, 67, 0.06);
+    --theme-135: #318c6d;
+    --theme-136: #8c3144;
+    --theme-137: #7a522b;
+    --theme-138: #7a5e2b;
+    --theme-139: rgba(24, 43, 67, 0.06);
+    --theme-140: #ffffff;
+    --theme-141: #ffffff;
+    --theme-142: #182b43;
+    --theme-143: rgba(24, 43, 67, 0.12);
+    --theme-144: #52647a;
+    --theme-145: rgba(24, 43, 67, 0.06);
+    --theme-146: rgba(24, 43, 67, 0.12);
+    --theme-147: rgba(24, 43, 67, 0.06);
+    --theme-148: rgba(255, 255, 255, 0.78);
+    --theme-149: rgba(255, 255, 255, 0.98);
+    --theme-150: rgba(24, 43, 67, 0.14);
+    --theme-151: rgba(255, 255, 255, 0.82);
+    --theme-152: #128c83;
+    --theme-153: #ffffff;
+    --theme-154: #182b43;
+    --theme-155: rgba(24, 43, 67, 0.09);
+    --theme-156: #182b43;
+    --theme-157: rgba(24, 43, 67, 0.06);
+    --theme-158: #182b43;
+    --theme-159: rgba(255, 255, 255, 0.78);
+    --theme-160: rgba(24, 43, 67, 0.14);
+    --theme-161: #182b43;
+    --theme-162: rgba(24, 43, 67, 0.25);
+    --theme-163: #182b43;
+    --theme-164: #182b43;
+    --theme-165: rgba(24, 43, 67, 0.14);
+    --theme-166: #182b43;
+    --theme-167: #182b43;
+    --theme-168: #318c5e;
+    --theme-169: #182b43;
+}
+
+:root[data-theme="light"] body { background-color: var(--bg); }
+:root[data-theme="light"] .sidebar { background: #eaf1f8; border-color: #d2deeb; }
+:root[data-theme="light"] .nav-link.active { background: #d7eef1; color: #075d69; }
+:root[data-theme="light"] .nav-link:hover { background: #deebf5; }
+:root[data-theme="light"] .notification-count { color: #fff; }
+:root[data-theme="light"] .qr { background: #fff; }
+:root[data-theme="light"] select { color-scheme: light; }
+:root[data-theme="light"] .form-select { --bs-form-select-bg-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23182b43' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E"); }
+.theme-toggle { width: 40px; height: 40px; padding: 9px; border-radius: 12px; cursor: pointer; }
+.theme-toggle svg { width: 20px; height: 20px; display: block; }
+.theme-toggle:hover { background: var(--accent-soft); border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.theme-toggle-corner { position: fixed; top: 16px; right: 16px; z-index: 1500; background: var(--panel); }
+@media print { .theme-toggle { display: none; } }
+
+/* Bootstrap components and overlays share the same light palette. */
+:root[data-theme="light"] .table {
+    --bs-table-color: var(--text);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--border);
+    --bs-table-hover-bg: #edf5fa;
+    --bs-table-hover-color: var(--text);
+    --bs-table-striped-bg: #f5f8fc;
+    --bs-table-striped-color: var(--text);
+}
+:root[data-theme="light"] .table thead { background: #eef4fa; }
+:root[data-theme="light"] .table tbody tr:hover { background: #edf5fa; }
+:root[data-theme="light"] .btn-outline-light { color: var(--text); border-color: #bacbdc; }
+:root[data-theme="light"] .btn-outline-light:hover { background: #e7f0f8; color: var(--text); border-color: #879db5; }
+:root[data-theme="light"] .modal-backdrop,
+:root[data-theme="light"] .users-modal-backdrop,
+:root[data-theme="light"] .payment-modal-backdrop,
+:root[data-theme="light"] .receipt-modal-backdrop,
+:root[data-theme="light"] .face-login-modal { background-color: rgba(24, 43, 67, .38); }
+:root[data-theme="light"] .form-control,
+:root[data-theme="light"] .form-select { color: var(--text); background-color: #fff; border-color: #c6d4e3; }
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder { color: #61738a; }
+:root[data-theme="light"] .badge-success { color: #12643f; background: #ddf3e6; }
+:root[data-theme="light"] .badge-warning { color: #835000; background: #fff0cf; }
+:root[data-theme="light"] .badge-danger { color: #a3213c; background: #fce1e7; }
+@media print {
+    :root[data-theme="light"] .receipt-modal-backdrop { background: #fff !important; }
+}
+
+/* Keep the header clock on a readable surface in Light Mode. */
+:root[data-theme="light"] .topbar .topbar-chip.secondary {
+    background: var(--panel-strong);
+    color: var(--text);
+    border-color: var(--border);
+}

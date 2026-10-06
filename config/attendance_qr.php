@@ -40,6 +40,17 @@ function requestIsHttps(): bool
     return secureposRequestIsHttps();
 }
 
+/** HTTP exception is limited to direct loopback access in the local environment. */
+function attendanceKioskTransportAllowed(): bool
+{
+    if (requestIsHttps()) {
+        return true;
+    }
+    return secureposSetting('environment') === 'local'
+        && preg_match('/\A(?:localhost|127\.0\.0\.1)(?::[0-9]{1,5})?\z/iD', (string)($_SERVER['HTTP_HOST'] ?? '')) === 1
+        && in_array((string)($_SERVER['REMOTE_ADDR'] ?? ''), ['127.0.0.1', '::1'], true);
+}
+
 function startKioskStateSession(): void
 {
     if (session_status() === PHP_SESSION_ACTIVE) {
@@ -84,7 +95,7 @@ function issueKioskCredential(mysqli $mysqli, int $managerUserId, string $label,
 
 function requireKiosk(mysqli $mysqli, DateTimeImmutable $now, bool $redirectToPairing = true): array
 {
-    if (!requestIsHttps()) {
+    if (!attendanceKioskTransportAllowed()) {
         http_response_code(400);
         exit('Attendance display requires HTTPS.');
     }

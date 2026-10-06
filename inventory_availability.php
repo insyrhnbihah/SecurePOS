@@ -81,6 +81,7 @@ function availabilityStock($value): string
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Availability | SecurePOS</title>
@@ -96,8 +97,8 @@ function availabilityStock($value): string
         .availability-filter { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(180px, 230px) minmax(180px, 230px) auto auto; gap: 12px; align-items: end; }
         .availability-field { display: grid; gap: 7px; }
         .availability-field label { color: var(--muted); font-size: .82rem; font-weight: 600; }
-        .availability-field .form-control, .availability-field .form-select { min-height: 42px; border-color: rgba(255,255,255,.1); background: rgba(255,255,255,.045); color: var(--text); }
-        .availability-field .form-select option { background: #101d2d; color: var(--text); }
+        .availability-field .form-control, .availability-field .form-select { min-height: 42px; border-color: var(--theme-80, rgba(255,255,255,.1)); background: var(--theme-139, rgba(255,255,255,.045)); color: var(--text); }
+        .availability-field .form-select option { background: var(--theme-90, #101d2d); color: var(--text); }
         .availability-table { min-width: 820px; margin-bottom: 0; }
         .availability-table th, .availability-table td { padding: 11px 12px; vertical-align: middle; }
         .availability-table th:not(:nth-child(2)), .availability-table td:not(:nth-child(2)) { text-align: center; }
@@ -105,6 +106,7 @@ function availabilityStock($value): string
         @media (max-width: 980px) { .availability-filter { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
         @media (max-width: 620px) { .availability-filter { grid-template-columns: 1fr; } .availability-filter .btn { width: 100%; } }
     </style>
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body>
     <div class="dashboard-shell">

@@ -152,6 +152,7 @@ $lastLoginDisplay = $lastLoginRow
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecurePOS Manager Dashboard | Restoran Kencana Sari</title>
@@ -160,6 +161,7 @@ $lastLoginDisplay = $lastLoginRow
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-3e6pZLlYGnJotkXptUsH4FJsuMx6Knc4fNdZ3K4BVhEME8GVerSSTpfaYfZ2C8Ux" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css?v=20260902-security-overview">
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body>
     <div class="dashboard-shell">

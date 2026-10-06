@@ -140,6 +140,7 @@ $filterQuery = http_build_query(array_filter([
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction History | SecurePOS</title>
@@ -155,8 +156,8 @@ $filterQuery = http_build_query(array_filter([
         .history-filter { display: grid; grid-template-columns: repeat(5, minmax(140px, 1fr)) auto auto; gap: 12px; align-items: end; }
         .history-field { display: grid; gap: 7px; }
         .history-field label { color: var(--muted); font-size: .82rem; font-weight: 600; }
-        .history-field .form-control, .history-field .form-select { min-height: 42px; border-color: rgba(255,255,255,.1); background: rgba(255,255,255,.045); color: var(--text); }
-        .history-field .form-select option { background: #101d2d; color: var(--text); }
+        .history-field .form-control, .history-field .form-select { min-height: 42px; border-color: var(--theme-80, rgba(255,255,255,.1)); background: var(--theme-139, rgba(255,255,255,.045)); color: var(--text); }
+        .history-field .form-select option { background: var(--theme-90, #101d2d); color: var(--text); }
         .history-table { min-width: 760px; margin-bottom: 0; }
         .history-table th, .history-table td { padding: 11px 12px; vertical-align: middle; text-align: center; }
         .history-empty { padding: 28px 12px !important; color: var(--muted) !important; text-align: center !important; }
@@ -167,6 +168,7 @@ $filterQuery = http_build_query(array_filter([
         @media (max-width: 1100px) { .history-filter { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
         @media (max-width: 620px) { .history-filter { grid-template-columns: 1fr; } .history-filter .btn { width: 100%; } }
     </style>
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body>
     <div class="dashboard-shell">

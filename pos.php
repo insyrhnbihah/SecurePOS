@@ -344,6 +344,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecurePOS Point of Sale | Restoran Kencana Sari</title>
@@ -376,11 +377,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .pos-panel {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--theme-38, rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
             border-radius: 24px;
             padding: 20px;
-            box-shadow: 0 20px 40px rgba(2, 8, 23, 0.3);
+            box-shadow: 0 20px 40px var(--theme-143, rgba(2, 8, 23, 0.3));
         }
 
         .pos-panel-header {
@@ -410,13 +411,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 48px;
             padding: 0 16px;
             border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
             color: var(--text);
         }
 
         .pos-search-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--theme-144, rgba(255, 255, 255, 0.5));
         }
 
         .filter-group {
@@ -430,8 +431,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .category-filter:visited,
         .beverage-subfilter,
         .beverage-subfilter:visited {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
             color: var(--muted);
             border-radius: 999px;
             padding: 8px 14px;
@@ -477,8 +478,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .menu-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
             border-radius: 18px;
             padding: 16px;
             display: flex;
@@ -547,9 +548,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .order-type-option-btn {
             min-height: 52px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--theme-35, rgba(255, 255, 255, 0.1));
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.045);
+            background: var(--theme-145, rgba(255, 255, 255, 0.045));
             color: var(--text);
             font-weight: 700;
             transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
@@ -576,17 +577,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .table-number-field.visible { display: grid; }
         .table-number-select {
             width: 100%; min-height: 42px; padding: 9px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px;
-            background: #101d2d; color: var(--text);
+            border: 1px solid var(--theme-146, rgba(255, 255, 255, 0.12)); border-radius: 10px;
+            background: var(--theme-90, #101d2d); color: var(--text);
         }
 
         .order-empty {
             padding: 24px 10px;
             text-align: center;
             color: var(--muted);
-            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border: 1px dashed var(--theme-146, rgba(255, 255, 255, 0.12));
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--theme-147, rgba(255, 255, 255, 0.02));
         }
 
         .order-list {
@@ -596,8 +597,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .order-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
             border-radius: 16px;
             padding: 12px;
             display: flex;
@@ -634,8 +635,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
             border-radius: 999px;
             padding: 4px;
         }
@@ -645,14 +646,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 28px;
             border: none;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--theme-4, rgba(255, 255, 255, 0.08));
             color: var(--text);
             font-size: 1rem;
             line-height: 1;
         }
 
         .qty-btn:hover {
-            background: rgba(255, 255, 255, 0.16);
+            background: var(--theme-15, rgba(255, 255, 255, 0.16));
         }
 
         .qty-value {
@@ -702,7 +703,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .payment-modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(4, 8, 18, 0.78);
+            background: var(--theme-148, rgba(4, 8, 18, 0.78));
             backdrop-filter: blur(4px);
             display: none;
             align-items: center;
@@ -717,11 +718,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .payment-modal {
             width: min(520px, 100%);
-            background: rgba(15, 23, 41, 0.98);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--theme-149, rgba(15, 23, 41, 0.98));
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
             border-radius: 24px;
             padding: 24px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 24px 60px var(--theme-150, rgba(0, 0, 0, 0.35));
         }
 
         .payment-modal h3 {
@@ -741,8 +742,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             padding: 14px 16px;
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
             margin-bottom: 16px;
         }
 
@@ -768,8 +769,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
             height: 46px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
             color: var(--text);
             font-weight: 600;
             transition: all 0.2s ease;
@@ -787,8 +788,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 46px;
             padding: 0 14px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
             color: var(--text);
         }
 
@@ -812,8 +813,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 16px;
             padding: 14px 16px;
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--theme-38, rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--theme-96, rgba(255, 255, 255, 0.06));
         }
 
         .payment-row {
@@ -839,8 +840,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 14px;
             padding: 10px 12px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--theme-4, rgba(255, 255, 255, 0.08));
+            background: var(--theme-2, rgba(255, 255, 255, 0.04));
             color: var(--text);
         }
 
@@ -864,7 +865,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .receipt-modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(4, 8, 18, 0.82);
+            background: var(--theme-151, rgba(4, 8, 18, 0.82));
             backdrop-filter: blur(4px);
             display: none;
             align-items: center;
@@ -885,7 +886,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #111827;
             border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 24px 60px var(--theme-150, rgba(0, 0, 0, 0.35));
         }
 
         .receipt-header {
@@ -904,7 +905,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .receipt-status {
             margin: 0 0 10px;
             font-weight: 700;
-            color: #0f766e;
+            color: var(--theme-152, #0f766e);
         }
 
         .receipt-info {
@@ -970,7 +971,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .btn-cancel {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--theme-4, rgba(255, 255, 255, 0.08));
             color: var(--text);
         }
 
@@ -988,8 +989,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .btn-print {
-            background: #111827;
-            color: #ffffff;
+            background: var(--theme-153, #111827);
+            color: var(--theme-154, #ffffff);
         }
 
         .btn-done {
@@ -1154,6 +1155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     </style>
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body>
     <div class="dashboard-shell">

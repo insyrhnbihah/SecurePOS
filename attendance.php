@@ -37,11 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
         attendanceAudit($mysqli, null, null, 'KIOSK_PAIRING', 'Success', 'Manager created one-time pairing code');
         $_SESSION['attendance_pairing_code'] = ['code' => $code, 'expires' => $expires];
-    } elseif ($action === 'emergency_regenerate') {
-        $mysqli->begin_transaction();
-        $mysqli->query('UPDATE attendance_qr_tokens SET is_active = 0 WHERE is_active = 1');
-        attendanceAudit($mysqli, null, null, 'QR_GENERATION', 'Success', 'Emergency regeneration requested');
-        $mysqli->commit();
     } elseif ($action === 'revoke_kiosk') {
         $kioskId = filter_var($_POST['kiosk_id'] ?? null, FILTER_VALIDATE_INT);
         if ($kioskId !== false && $kioskId > 0) {
@@ -243,6 +238,7 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="assets/js/theme.js?v=20261007"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SecurePOS Employee Attendance | Restoran Kencana Sari</title>
@@ -255,21 +251,21 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         .attendance-summary { grid-template-columns: repeat(5, minmax(160px, 1fr)); }
         .attendance-layout { display: grid; gap: 22px; }
         .attendance-toolbar { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(170px, 210px) minmax(165px, 195px) auto auto; gap: 10px; align-items: center; margin-bottom: 18px; }
-        .attendance-toolbar .form-control, .attendance-toolbar .form-select { width: 100%; height: 40px; min-width: 0; padding: 8px 12px; border: 1px solid rgba(255,255,255,.09); border-radius: 9px; background: rgba(255,255,255,.04); color: var(--text); }
+        .attendance-toolbar .form-control, .attendance-toolbar .form-select { width: 100%; height: 40px; min-width: 0; padding: 8px 12px; border: 1px solid var(--theme-89, rgba(255,255,255,.09)); border-radius: 9px; background: var(--theme-79, rgba(255,255,255,.04)); color: var(--text); }
         .attendance-toolbar .form-control::placeholder { color: var(--muted); }
-        .attendance-toolbar .form-select option { background: #101d2d; color: var(--text); }
+        .attendance-toolbar .form-select option { background: var(--theme-90, #101d2d); color: var(--text); }
         .attendance-toolbar .form-control:focus, .attendance-toolbar .form-select:focus { border-color: rgba(85,214,209,.7); box-shadow: 0 0 0 3px rgba(85,214,209,.12); outline: 0; }
         .attendance-toolbar .btn { display: inline-flex; align-items: center; justify-content: center; justify-self: start; width: auto; height: 40px; padding: 8px 18px; border-radius: 9px; white-space: nowrap; }
         .attendance-toolbar .btn-primary { border-color: #55d6d1; background: linear-gradient(135deg, #55d6d1, #43b6ff); color: #07101c; font-weight: 700; }
         .attendance-toolbar .btn-primary:hover, .attendance-toolbar .btn-primary:focus { border-color: #72e2de; background: linear-gradient(135deg, #72e2de, #59c3ff); color: #07101c; }
-        .attendance-toolbar .btn-outline-light { border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.035); color: var(--text); }
-        .attendance-toolbar .btn-outline-light:hover, .attendance-toolbar .btn-outline-light:focus { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.08); color: var(--text); }
+        .attendance-toolbar .btn-outline-light { border-color: var(--theme-91, rgba(255,255,255,.16)); background: var(--theme-92, rgba(255,255,255,.035)); color: var(--text); }
+        .attendance-toolbar .btn-outline-light:hover, .attendance-toolbar .btn-outline-light:focus { border-color: var(--theme-93, rgba(255,255,255,.28)); background: var(--theme-94, rgba(255,255,255,.08)); color: var(--text); }
         .attendance-qr { display: grid; grid-template-columns: auto minmax(240px, 1fr); gap: 28px; align-items: center; padding: 28px; border: 1px solid rgba(85,214,209,0.24); border-radius: 14px; background: rgba(85,214,209,0.04); }
         .attendance-qr-code { width: 220px; height: 220px; display: grid; place-items: center; padding: 12px; border-radius: 12px; background: #fff; }
         .attendance-qr-code img, .attendance-qr-code canvas { display: block; max-width: 100%; height: auto; }
         .attendance-qr-details h4 { margin: 0 0 8px; color: var(--text); font-size: 1.15rem; }
         .attendance-qr-details p { margin: 0 0 8px; color: var(--muted); }
-        .attendance-qr-expiry { color: #9feee9 !important; font-weight: 600; }
+        .attendance-qr-expiry { color: var(--theme-112, #9feee9) !important; font-weight: 600; }
         .attendance-qr-countdown { margin: 18px 0; color: var(--text); font-size: 1.65rem; font-weight: 800; font-variant-numeric: tabular-nums; }
         .attendance-table { width: 100%; table-layout: fixed; border-collapse: collapse; }
         .attendance-table th, .attendance-table td { vertical-align: middle; padding-top: 12px; padding-bottom: 12px; }
@@ -279,16 +275,16 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         .attendance-table .col-hours { width: 15%; text-align: center; }
         .attendance-table .col-attendance-status { width: 15%; text-align: center; }
         .attendance-status { display: inline-flex; align-items: center; justify-content: center; min-height: 26px; padding: 4px 9px; border-radius: 999px; font-size: .76rem; font-weight: 700; line-height: 1; white-space: nowrap; }
-        .attendance-status.present { color: #9feee9; background: rgba(85,214,209,.16); border: 1px solid rgba(85,214,209,.24); }
-        .attendance-status.late { color: #ffd097; background: rgba(255,159,67,.16); border: 1px solid rgba(255,159,67,.24); }
-        .attendance-status.absent { color: #ffb3c1; background: rgba(252,92,125,.16); border: 1px solid rgba(252,92,125,.24); }
-        .attendance-status.on-leave { color: #c8bdff; background: rgba(138,107,255,.18); border: 1px solid rgba(138,107,255,.28); }
+        .attendance-status.present { color: var(--theme-112, #9feee9); background: rgba(85,214,209,.16); border: 1px solid rgba(85,214,209,.24); }
+        .attendance-status.late { color: var(--theme-113, #ffd097); background: rgba(255,159,67,.16); border: 1px solid rgba(255,159,67,.24); }
+        .attendance-status.absent { color: var(--theme-114, #ffb3c1); background: rgba(252,92,125,.16); border: 1px solid rgba(252,92,125,.24); }
+        .attendance-status.on-leave { color: var(--theme-115, #c8bdff); background: rgba(138,107,255,.18); border: 1px solid rgba(138,107,255,.28); }
         .attendance-tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
         .attendance-tabs a { padding:9px 13px; border:1px solid var(--border); border-radius:9px; color:var(--muted); }
         .attendance-tabs a:hover { color:var(--text); border-color:rgba(85,214,209,.45); }
         .attendance-alert { padding:12px 14px; margin-bottom:16px; border-radius:10px; }
-        .attendance-alert.success { background:rgba(85,214,209,.13); color:#9feee9; }
-        .attendance-alert.error { background:rgba(252,92,125,.13); color:#ffb3c1; }
+        .attendance-alert.success { background:rgba(85,214,209,.13); color:var(--theme-112, #9feee9); }
+        .attendance-alert.error { background:rgba(252,92,125,.13); color:var(--theme-114, #ffb3c1); }
         .leave-toolbar { grid-template-columns:minmax(220px,1.4fr) minmax(150px,.7fr) minmax(180px,.8fr) auto auto; margin-bottom:18px; }
         #leave-requests { min-width:0; overflow:hidden; }
         .leave-table-wrap { display:block; width:100%; max-width:100%; overflow-x:auto; overflow-y:hidden; padding:0 2px 6px 0; scrollbar-gutter:stable; }
@@ -296,7 +292,7 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         .manager-leave-table { width:100%; min-width:1050px; margin-bottom:0; table-layout:auto; }
         .manager-leave-table th { padding:11px 9px; vertical-align:middle; white-space:nowrap; }
         .manager-leave-table tbody tr { border-bottom:0; }
-        .manager-leave-table tbody td { padding:11px 9px; vertical-align:middle; line-height:1.4; border-top:0; border-right:0; border-left:0; border-bottom:1px solid rgba(255,255,255,.06); background-clip:padding-box; }
+        .manager-leave-table tbody td { padding:11px 9px; vertical-align:middle; line-height:1.4; border-top:0; border-right:0; border-left:0; border-bottom:1px solid var(--theme-116, rgba(255,255,255,.06)); background-clip:padding-box; }
         .manager-leave-table tbody tr:last-child td { border-bottom:0; }
         .manager-leave-table th:nth-child(1), .manager-leave-table td:nth-child(1) { min-width:108px; }
         .manager-leave-table th:nth-child(2), .manager-leave-table td:nth-child(2) { min-width:125px; }
@@ -309,18 +305,18 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         .leave-actions { display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:nowrap; width:max-content; max-width:100%; margin:0 auto; }
         .leave-actions form { margin:0; }
         .leave-action-btn { display:inline-flex; align-items:center; justify-content:center; min-width:62px; height:34px; min-height:34px; padding:7px 9px; border-radius:8px; font-size:.78rem; font-weight:800; line-height:1; box-shadow:none; transition:background .2s,border-color .2s,color .2s,transform .2s,box-shadow .2s; }
-        .leave-approve-btn { border:1px solid rgba(85,214,209,.48); background:rgba(85,214,209,.16); color:#aef5f1; }
+        .leave-approve-btn { border:1px solid rgba(85,214,209,.48); background:rgba(85,214,209,.16); color:var(--theme-117, #aef5f1); }
         .leave-approve-btn:hover, .leave-approve-btn:focus-visible { border-color:#55d6d1; background:#55d6d1; color:#071718; box-shadow:0 7px 18px rgba(85,214,209,.16); transform:translateY(-1px); outline:none; }
-        .leave-reject-btn { border:1px solid rgba(252,92,125,.48); background:rgba(252,92,125,.13); color:#ffb3c1; }
+        .leave-reject-btn { border:1px solid rgba(252,92,125,.48); background:rgba(252,92,125,.13); color:var(--theme-114, #ffb3c1); }
         .leave-reject-btn:hover, .leave-reject-btn:focus-visible { border-color:#fc5c7d; background:#fc5c7d; color:#19070d; box-shadow:0 7px 18px rgba(252,92,125,.16); transform:translateY(-1px); outline:none; }
         .leave-action-btn:active { transform:translateY(0); }
         .leave-status { display:inline-flex; padding:5px 9px; border-radius:999px; font-size:.75rem; font-weight:700; }
-        .leave-status.pending { background:rgba(255,159,67,.15); color:#ffd097; }
-        .leave-status.approved { background:rgba(85,214,209,.15); color:#9feee9; }
-        .leave-status.rejected { background:rgba(252,92,125,.15); color:#ffb3c1; }
-        .leave-dialog { width:min(92vw,520px); border:1px solid var(--border); border-radius:16px; background:#101d2d; color:var(--text); padding:22px; }
-        .leave-dialog::backdrop { background:rgba(2,8,18,.78); }
-        .leave-dialog textarea { width:100%; min-height:120px; padding:10px; border:1px solid var(--border); border-radius:9px; background:#081525; color:var(--text); margin:12px 0; }
+        .leave-status.pending { background:rgba(255,159,67,.15); color:var(--theme-113, #ffd097); }
+        .leave-status.approved { background:rgba(85,214,209,.15); color:var(--theme-112, #9feee9); }
+        .leave-status.rejected { background:rgba(252,92,125,.15); color:var(--theme-114, #ffb3c1); }
+        .leave-dialog { width:min(92vw,520px); border:1px solid var(--border); border-radius:16px; background:var(--theme-90, #101d2d); color:var(--text); padding:22px; }
+        .leave-dialog::backdrop { background:var(--theme-118, rgba(2,8,18,.78)); }
+        .leave-dialog textarea { width:100%; min-height:120px; padding:10px; border:1px solid var(--border); border-radius:9px; background:var(--theme-119, #081525); color:var(--text); margin:12px 0; }
         .dialog-actions { display:flex; justify-content:flex-end; gap:9px; }
         .attendance-empty { color: var(--muted) !important; text-align: center; padding: 30px 16px !important; }
         .kiosk-panel .panel-header { margin-bottom: 6px; }
@@ -330,13 +326,13 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         .attendance-display-launch p { max-width: 660px; margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.5; }
         .attendance-display-launch .btn { flex: 0 0 auto; min-width: 190px; padding: 11px 18px; border-color: #55d6d1; background: #55d6d1; color: #071718; font-weight: 800; }
         .attendance-display-launch .btn:hover, .attendance-display-launch .btn:focus { border-color: #72e2de; background: #72e2de; color: #071718; }
-        .kiosk-management { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
+        .kiosk-management { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--theme-94, rgba(255,255,255,.08)); }
         .kiosk-management-heading h3 { margin: 0 0 4px; color: var(--text); font-size: 1rem; }
         .kiosk-management-heading p { margin: 0; color: var(--muted); font-size: .82rem; }
         .kiosk-controls { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(270px, .65fr); gap: 14px; align-items: stretch; margin: 16px 0 18px; }
-        .kiosk-control-card { min-width: 0; padding: 15px 16px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
+        .kiosk-control-card { min-width: 0; padding: 15px 16px; border: 1px solid var(--theme-94, rgba(255,255,255,.08)); border-radius: 12px; background: var(--theme-64, rgba(255,255,255,.025)); }
         .kiosk-control-card h4 { margin: 0 0 8px; color: var(--text); font-size: .92rem; font-weight: 700; }
-        .kiosk-pairing-code { display: block; width: fit-content; max-width: 100%; padding: 8px 11px; border: 1px solid rgba(85,214,209,.3); border-radius: 8px; background: rgba(85,214,209,.09); color: #b9f5f1; font-family: Consolas, "SFMono-Regular", Menlo, Monaco, monospace; font-size: .96rem; font-weight: 700; line-height: 1.45; letter-spacing: .035em; overflow-wrap: anywhere; word-break: break-word; }
+        .kiosk-pairing-code { display: block; width: fit-content; max-width: 100%; padding: 8px 11px; border: 1px solid rgba(85,214,209,.3); border-radius: 8px; background: rgba(85,214,209,.09); color: var(--theme-120, #b9f5f1); font-family: Consolas, "SFMono-Regular", Menlo, Monaco, monospace; font-size: .96rem; font-weight: 700; line-height: 1.45; letter-spacing: .035em; overflow-wrap: anywhere; word-break: break-word; }
         .kiosk-code-note, .kiosk-code-expiry { margin: 7px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.45; }
         .kiosk-code-empty { color: var(--muted); font-size: .85rem; }
         .kiosk-actions-card { display: flex; flex-direction: column; justify-content: center; }
@@ -345,8 +341,6 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         .kiosk-actions .btn, .kiosk-table .btn { min-height: 34px; padding: 7px 12px; border-radius: 8px; font-size: .8rem; font-weight: 700; line-height: 1.2; box-shadow: none; }
         .kiosk-actions .btn-primary { border-color: #55d6d1; background: #55d6d1; color: #071718; }
         .kiosk-actions .btn-primary:hover, .kiosk-actions .btn-primary:focus { border-color: #72e2de; background: #72e2de; color: #071718; }
-        .kiosk-actions .btn-kiosk-warning { border: 1px solid rgba(255,159,67,.42); background: rgba(255,159,67,.1); color: #ffd097; }
-        .kiosk-actions .btn-kiosk-warning:hover, .kiosk-actions .btn-kiosk-warning:focus { border-color: rgba(255,159,67,.72); background: rgba(255,159,67,.18); color: #ffe0b8; }
         .kiosk-table { margin-bottom: 0; }
         .kiosk-table th, .kiosk-table td { padding: 10px 12px; vertical-align: middle; }
         .kiosk-table th:first-child, .kiosk-table td:first-child { text-align: left; }
@@ -357,6 +351,7 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
         @media (max-width: 720px) { .kiosk-controls { grid-template-columns: 1fr; } .attendance-display-launch { align-items: stretch; flex-direction: column; } .attendance-display-launch .btn { width: 100%; } }
         @media (max-width: 620px) { .attendance-summary, .attendance-toolbar, .attendance-qr { grid-template-columns: 1fr; } .attendance-qr-code { margin: 0 auto; } .attendance-qr-details { text-align: center; } .kiosk-panel .panel-header { display: block; } .kiosk-panel .panel-header span { display: block; margin-top: 4px; } .kiosk-controls { margin-top: 14px; } .kiosk-control-card { padding: 14px; } .kiosk-actions { align-items: stretch; } .kiosk-actions form, .kiosk-actions .btn { width: 100%; } .kiosk-table { min-width: 620px; } }
     </style>
+    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
 </head>
 <body>
     <div class="dashboard-shell">
@@ -452,7 +447,6 @@ unset($_SESSION['attendance_notice'], $_SESSION['attendance_error']);
                             <h4>Kiosk controls</h4>
                             <div class="kiosk-actions">
                                 <form method="post"><input type="hidden" name="action" value="create_kiosk_pairing"><input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['attendance_admin_csrf'], ENT_QUOTES, 'UTF-8'); ?>"><button type="submit" class="btn btn-primary">Pair New Display</button></form>
-                                <form method="post"><input type="hidden" name="action" value="emergency_regenerate"><input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['attendance_admin_csrf'], ENT_QUOTES, 'UTF-8'); ?>"><button type="submit" class="btn btn-kiosk-warning">Emergency Regenerate QR</button></form>
                             </div>
                         </div>
                     </div>

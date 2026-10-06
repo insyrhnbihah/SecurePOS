@@ -9,7 +9,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Referrer-Policy: no-referrer');
 header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:");
 
-if (!requestIsHttps()) {
+if (!attendanceKioskTransportAllowed()) {
     http_response_code(400);
     exit('Attendance display requires HTTPS.');
 }
@@ -73,26 +73,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'pair'
 }
 ?>
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head>
+    <script src="assets/js/theme.js?v=20261007"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SecurePOS Attendance Display</title><link rel="stylesheet" href="assets/css/style.css">
 <style>
-body{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 8%,rgba(85,214,209,.12),transparent 32%),#07111f;color:#fff}
-.kiosk{width:min(92vw,620px);text-align:center;padding:36px;background:#101d2d;border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 28px 70px rgba(0,0,0,.38)}
-.qr{width:260px;height:260px;margin:24px auto;padding:12px;background:#fff}.qr img,.qr canvas{max-width:100%;height:auto}.muted{color:#9aabba}
-.pairing-view{max-width:460px;margin:0 auto}.pairing-icon{display:grid;width:66px;height:66px;margin:0 auto 20px;place-items:center;border:1px solid rgba(85,214,209,.3);border-radius:20px;background:rgba(85,214,209,.1);color:#7ce5df;box-shadow:0 0 28px rgba(85,214,209,.08)}
+body{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 8%,rgba(85,214,209,.12),transparent 32%),var(--theme-122, #07111f);color:var(--theme-13, #fff)}
+.kiosk{width:min(92vw,620px);text-align:center;padding:36px;background:var(--theme-90, #101d2d);border:1px solid var(--theme-94, rgba(255,255,255,.08));border-radius:18px;box-shadow:0 28px 70px var(--theme-123, rgba(0,0,0,.38))}
+.qr{width:260px;height:260px;margin:24px auto;padding:12px;background:#fff}.qr img,.qr canvas{max-width:100%;height:auto}.muted{color:var(--theme-124, #9aabba)}
+.pairing-view{max-width:460px;margin:0 auto}.pairing-icon{display:grid;width:66px;height:66px;margin:0 auto 20px;place-items:center;border:1px solid rgba(85,214,209,.3);border-radius:20px;background:rgba(85,214,209,.1);color:var(--theme-125, #7ce5df);box-shadow:0 0 28px rgba(85,214,209,.08)}
 .pairing-icon svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.pairing-view h1{margin:0 0 10px;font-size:1.55rem;letter-spacing:-.015em}.pairing-intro{max-width:410px;margin:0 auto;color:#9aabba;font-size:.92rem;line-height:1.55}
-.pair{margin-top:24px}.pair-code-label{display:block;margin-bottom:9px;color:#dce6f7;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.pair-code-input{display:block;width:min(100%,390px);min-height:52px;margin:0 auto;padding:11px 15px;border:1px solid rgba(255,255,255,.13);border-radius:12px;outline:none;background:#081321;color:#edf2ff;text-align:center;font-family:Consolas,"SFMono-Regular",Menlo,Monaco,monospace;font-size:1.08rem;font-weight:700;letter-spacing:.105em;transition:border-color .18s,box-shadow .18s,background .18s}
-.pair-code-input:hover{border-color:rgba(85,214,209,.35)}.pair-code-input:focus{border-color:#55d6d1;background:#091827;box-shadow:0 0 0 4px rgba(85,214,209,.12)}
+.pairing-view h1{margin:0 0 10px;font-size:1.55rem;letter-spacing:-.015em}.pairing-intro{max-width:410px;margin:0 auto;color:var(--theme-124, #9aabba);font-size:.92rem;line-height:1.55}
+.pair{margin-top:24px}.pair-code-label{display:block;margin-bottom:9px;color:var(--theme-126, #dce6f7);font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.pair-code-input{display:block;width:min(100%,390px);min-height:52px;margin:0 auto;padding:11px 15px;border:1px solid var(--theme-127, rgba(255,255,255,.13));border-radius:12px;outline:none;background:var(--theme-128, #081321);color:var(--theme-6, #edf2ff);text-align:center;font-family:Consolas,"SFMono-Regular",Menlo,Monaco,monospace;font-size:1.08rem;font-weight:700;letter-spacing:.105em;transition:border-color .18s,box-shadow .18s,background .18s}
+.pair-code-input:hover{border-color:rgba(85,214,209,.35)}.pair-code-input:focus{border-color:#55d6d1;background:var(--theme-129, #091827);box-shadow:0 0 0 4px rgba(85,214,209,.12)}
 .pair-submit{position:relative;width:min(100%,390px);min-height:50px;margin-top:14px;border:1px solid #55d6d1;border-radius:12px;background:linear-gradient(135deg,#55d6d1,#43b6ff);color:#071718;font-weight:800;cursor:pointer;transition:transform .18s,filter .18s,opacity .18s}
 .pair-submit:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}.pair-submit:focus-visible{outline:3px solid rgba(85,214,209,.28);outline-offset:3px}.pair-submit:disabled{cursor:wait;opacity:.68}
-.pair-submit.is-loading{color:transparent}.pair-submit.is-loading::after{content:"";position:absolute;left:50%;top:50%;width:19px;height:19px;margin:-9.5px;border:2px solid rgba(7,23,24,.25);border-top-color:#071718;border-radius:50%;animation:pair-spin .7s linear infinite}
-.pair-helper{margin:13px 0 0;color:#74869e;font-size:.76rem;line-height:1.45}.error{max-width:390px;margin:18px auto 0;padding:10px 12px;border:1px solid rgba(252,92,125,.25);border-radius:10px;background:rgba(252,92,125,.1);color:#ffb3c1;font-size:.84rem}
+.pair-submit.is-loading{color:transparent}.pair-submit.is-loading::after{content:"";position:absolute;left:50%;top:50%;width:19px;height:19px;margin:-9.5px;border:2px solid var(--theme-130, rgba(7,23,24,.25));border-top-color:var(--theme-131, #071718);border-radius:50%;animation:pair-spin .7s linear infinite}
+.pair-helper{margin:13px 0 0;color:var(--theme-132, #74869e);font-size:.76rem;line-height:1.45}.error{max-width:390px;margin:18px auto 0;padding:10px 12px;border:1px solid rgba(252,92,125,.25);border-radius:10px;background:rgba(252,92,125,.1);color:var(--theme-114, #ffb3c1);font-size:.84rem}
 @keyframes pair-spin{to{transform:rotate(360deg)}}
 @media(max-width:520px){body{padding:14px}.kiosk{width:100%;padding:28px 20px;border-radius:16px}.pairing-view h1{font-size:1.35rem}.pair-code-input{font-size:.95rem;letter-spacing:.075em}}
 @media(prefers-reduced-motion:reduce){.pair-code-input,.pair-submit{transition:none}.pair-submit:hover:not(:disabled){transform:none}.pair-submit.is-loading::after{animation-duration:1.4s}}
-</style></head><body><main class="kiosk">
+</style>    <link rel="stylesheet" href="assets/css/theme.css?v=20261007">
+</head><body><main class="kiosk">
 <?php if (isset($_GET['pair']) || $pairingError !== '') : ?>
 <section class="pairing-view" aria-labelledby="pairing-title">
 <div class="pairing-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="17" rx="3"/><path d="M11 27h10M16 22v5M16 9l6 2.5v4.2c0 3.2-2.4 5.3-6 6.3-3.6-1-6-3.1-6-6.3v-4.2L16 9Z"/></svg></div>
